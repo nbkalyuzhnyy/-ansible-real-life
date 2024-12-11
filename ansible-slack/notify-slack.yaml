@@ -1,0 +1,15 @@
+---
+- name: Post Slack message with dynamic Block Kit
+  hosts: localhost
+  vars_files:
+    - vars/sample-data.yaml
+  vars:
+    status_title: "Demo App Stack - OS Patching Status"
+    slack_channel: "#ansible"
+  tasks:
+    - name: Render and post message to Slack
+      ansible.builtin.include_role:
+        name: notify-slack
+      vars:
+        slack_template: 'slack_status.json'
+        channel: "{{ slack_channel }}"
